@@ -24,4 +24,4 @@ COPY config.json /usr/src/
 
 EXPOSE 8888
 
-ENTRYPOINT ["/usr/local/bin/cfssl", "serve", "-address=0.0.0.0", "-ca=/run/secrets/ca_pem", "-ca-key=/run/secrets/ca_key_pem", "-config=config.json"]
+ENTRYPOINT ["/usr/local/bin/cfssl", "serve", "-address=0.0.0.0", "-ca=/run/secrets/ca.pem", "-ca-key=/run/secrets/ca-key.pem", "-config=config.json"]
