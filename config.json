@@ -1,16 +1,17 @@
 {
     "signing": {
-        "default": {
-            "expiry": "143800h"
-        },
         "profiles": {
             "intermediate": {
                 "usages": [
                     "cert sign",
                     "crl sign"
                 ],
+                "ca_constraint": {"is_ca": true},
                 "expiry": "143800h",
-                "ca_constraint": {"is_ca": true}
+                "key": {
+                    "algo": "rsa",
+                    "size": 2048
+                }
             },
             "server": {
                 "usages": [
@@ -19,7 +20,11 @@
                     "key encipherment",
                     "server auth"
                 ],
-                "expiry": "143800h"
+                "expiry": "143800h",
+                "key": {
+                    "algo": "rsa",
+                    "size": 2048
+                }
             },
             "peer": {
                 "usages": [
@@ -29,7 +34,11 @@
                     "client auth",
                     "server auth"
                 ],
-                "expiry": "143800h"
+                "expiry": "143800h",
+                "key": {
+                    "algo": "rsa",
+                    "size": 2048
+                }
             },
             "client": {
                 "usages": [
@@ -38,7 +47,11 @@
                     "key encipherment", 
                     "client auth"
                 ],
-                "expiry": "143800h"
+                "expiry": "143800h",
+                "key": {
+                    "algo": "rsa",
+                    "size": 2048
+                }
             }
         }
     }
