@@ -7,11 +7,7 @@
                     "crl sign"
                 ],
                 "ca_constraint": {"is_ca": true},
-                "expiry": "143800h",
-                "key": {
-                    "algo": "rsa",
-                    "size": 2048
-                }
+                "expiry": "143800h"
             },
             "server": {
                 "usages": [
@@ -20,11 +16,7 @@
                     "key encipherment",
                     "server auth"
                 ],
-                "expiry": "143800h",
-                "key": {
-                    "algo": "rsa",
-                    "size": 2048
-                }
+                "expiry": "143800h"
             },
             "peer": {
                 "usages": [
@@ -34,11 +26,7 @@
                     "client auth",
                     "server auth"
                 ],
-                "expiry": "143800h",
-                "key": {
-                    "algo": "rsa",
-                    "size": 2048
-                }
+                "expiry": "143800h"
             },
             "client": {
                 "usages": [
@@ -47,11 +35,7 @@
                     "key encipherment", 
                     "client auth"
                 ],
-                "expiry": "143800h",
-                "key": {
-                    "algo": "rsa",
-                    "size": 2048
-                }
+                "expiry": "143800h"
             }
         }
     }
