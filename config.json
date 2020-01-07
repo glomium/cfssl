@@ -7,7 +7,7 @@
                     "crl sign"
                 ],
                 "ca_constraint": {"is_ca": true},
-                "expiry": "143800h"
+                "expiry": "168h"
             },
             "server": {
                 "usages": [
@@ -16,7 +16,7 @@
                     "key encipherment",
                     "server auth"
                 ],
-                "expiry": "143800h"
+                "expiry": "168h"
             },
             "peer": {
                 "usages": [
@@ -26,7 +26,7 @@
                     "client auth",
                     "server auth"
                 ],
-                "expiry": "143800h"
+                "expiry": "168h"
             },
             "client": {
                 "usages": [
@@ -35,7 +35,7 @@
                     "key encipherment", 
                     "client auth"
                 ],
-                "expiry": "143800h"
+                "expiry": "168h"
             }
         }
     }
