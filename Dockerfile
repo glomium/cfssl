@@ -1,10 +1,13 @@
-FROM alpine:3.11.3
+ARG UBUNTU=rolling
+FROM ubuntu:$UBUNTU
 MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
-# base alpine template
 
 ARG VERSION=1.4.1
 
-RUN apk add --no-cache --virtual build-dependencies curl \
+RUN apt-get update && apt-get install --no-install-recommends -y -q \
+    ca-certificates \
+    curl \
+ && apt-get clean \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-bundle_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-bundle \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-certinfo_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-certinfo \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-newkey_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-newkey \
@@ -14,7 +17,7 @@ RUN apk add --no-cache --virtual build-dependencies curl \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/mkbundle_${VERSION}_linux_amd64 -o /usr/local/bin/mkbundle \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/multiroot_${VERSION}_linux_amd64 -o /usr/local/bin/multiroot \
  && chmod a+x /usr/local/bin/* \
- && apk del build-dependencies
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src
 VOLUME /usr/src/certs
