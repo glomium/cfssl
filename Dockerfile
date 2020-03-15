@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
     ca-certificates \
     curl \
  && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-bundle_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-bundle \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-certinfo_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-certinfo \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-newkey_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-newkey \
@@ -16,8 +17,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/mkbundle_${VERSION}_linux_amd64 -o /usr/local/bin/mkbundle \
  && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/multiroot_${VERSION}_linux_amd64 -o /usr/local/bin/multiroot \
- && chmod a+x /usr/local/bin/* \
- && rm -rf /var/lib/apt/lists/*
+ && chmod a+x /usr/local/bin/*
 
 WORKDIR /usr/src
 VOLUME /usr/src/certs
