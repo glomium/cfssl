@@ -1,23 +1,37 @@
 ARG UBUNTU=rolling
-FROM ubuntu:$UBUNTU
-MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
+FROM ubuntu:$UBUNTU as build
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV LANG en_US.utf8
 
 ARG VERSION=1.4.1
 
 RUN apt-get update && apt-get install --no-install-recommends -y -q \
+    build-essential \
     ca-certificates \
     curl \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-bundle_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-bundle \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-certinfo_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-certinfo \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-newkey_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-newkey \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl-scan_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl-scan \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssljson_${VERSION}_linux_amd64 -o /usr/local/bin/cfssljson \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/cfssl_${VERSION}_linux_amd64 -o /usr/local/bin/cfssl \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/mkbundle_${VERSION}_linux_amd64 -o /usr/local/bin/mkbundle \
- && curl -sL https://github.com/cloudflare/cfssl/releases/download/v${VERSION}/multiroot_${VERSION}_linux_amd64 -o /usr/local/bin/multiroot \
- && chmod a+x /usr/local/bin/*
+    git \
+    golang-go \
+ && curl -sL https://github.com/cloudflare/cfssl/archive/v${VERSION}.tar.gz -o /opt/cfssl.tar.gz \
+ && mkdir /opt/cfssl \
+ && tar xzvf /opt/cfssl.tar.gz -C /opt/cfssl --strip-components=1 \
+ && cd /opt/cfssl \
+ && make \
+ && chmod a+x bin/*
+
+FROM ubuntu:$UBUNTU
+MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV LANG en_US.utf8
+
+RUN apt-get update && apt-get install --no-install-recommends -y -q \
+    ca-certificates \
+    curl \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /opt/cfssl/bin/* /usr/local/bin/
 
 WORKDIR /usr/src
 VOLUME /usr/src/certs

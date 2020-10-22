@@ -1,3 +1,3 @@
 # cfssl
 
-cfssl installation on alpine linux
+cfssl installation on ubuntu
