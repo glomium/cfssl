@@ -5,7 +5,7 @@ FROM ubuntu:$UBUNTU as build
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
 
-ARG VERSION=1.4.1
+ARG VERSION=1.5.0
 
 RUN apt-get update && apt-get install --no-install-recommends -y -q \
     build-essential \
