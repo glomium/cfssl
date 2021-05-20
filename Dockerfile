@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
-ARG UBUNTU=rolling
-FROM ubuntu:$UBUNTU as build
+ARG BASEIMAGE=ubuntu:rolling
+FROM $BASEIMAGE
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
