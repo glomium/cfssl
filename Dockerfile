@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
-ARG UBUNTU=rolling
-FROM ubuntu:$UBUNTU as build
+ARG BASEIMAGE=ubuntu:rolling
+FROM $BASEIMAGE as build
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && make \
  && chmod a+x bin/*
 
-FROM ubuntu:$UBUNTU
+FROM $BASEIMAGE
 MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 
 ENV DEBIAN_FRONTEND noninteractive
