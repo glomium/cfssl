@@ -5,7 +5,7 @@ FROM $BASEIMAGE as build
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
 
-ARG VERSION=1.6.1
+ARG VERSION=1.6.3
 
 RUN apt-get update && apt-get install --no-install-recommends -y -q \
     build-essential \
